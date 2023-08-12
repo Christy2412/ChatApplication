@@ -9,13 +9,11 @@ const Signin = () => {
         try {
             const {additionalUserInfo, user} = await auth.signInWithPopup(provider)
             if(additionalUserInfo.isNewUser){
-                await database.ref('/profiles/${user.uid}').set({
+                await database.ref(`/profiles/${user.uid}`).set({
                     name: user.displayName,
                     createdAt: firebase.database.ServerValue.TIMESTAMP
                 })
             }
-            
-            
             Alert.success('Signed In', 4000);
         } catch (err) {
             Alert.error(err.message, 4000);    
